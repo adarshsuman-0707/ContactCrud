@@ -1,6 +1,6 @@
 const express = require('express');
  const  cors=require('cors')
-require('./db/connect');
+// require('./db/connect');
 
 const user = require('./db/model');
 const app = express();
@@ -8,6 +8,16 @@ const port = 5000;
 app.use(express.json());
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
+const mongoose = require('mongoose');
+require('dotenv').config(); 
+const con=mongoose.connect('mongodb+srv://websitesudharo:1ox6G2TydUsezmiy@contactcrud.vlqhn.mongodb.net/?retryWrites=true&w=majority&appName=contactCrud',{useNewUrlParser:true,useUnifiedTopology:true})
+.then(()=>{
+    console.log("connected to database");
+})
+.catch((err)=>{
+    console.log(err);
+});
+
 async function calldata(data) {
     try {
         const newUser = new user(data);
